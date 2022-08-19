@@ -1,4 +1,4 @@
-const { Schema, Types } = require("mongoose");
+const { Schema, model } = require("mongoose");
 
 const userSchema = new Schema(
     {
@@ -29,6 +29,7 @@ userSchema
         return this.friends.length;
 });
 
+// Initialized the User model
 const User = model("user", userSchema);
 
 module.exports = User;
