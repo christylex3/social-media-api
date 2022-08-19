@@ -29,14 +29,14 @@ const userSchema = new Schema(
     }
 );
 
-// Virtual called friendCount that retrieves the length of the user's friends
+// Virtual called friendCount that retrieves the length of the user's friends array
 userSchema
     .virtual("friendCount")
     .get(function() {
         return this.friends.length;
 });
 
-// Initialized the User model
+// Initializes the User model
 const User = model("user", userSchema);
 
 module.exports = User;
