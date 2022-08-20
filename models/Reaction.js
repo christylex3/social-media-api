@@ -1,4 +1,4 @@
-const { Schema } = require("mongoose");
+const { Schema, Types } = require("mongoose");
 
 const reactionSchema = new Schema(
     {
@@ -20,5 +20,13 @@ const reactionSchema = new Schema(
             default: Date.now,
             // TODO: getter method to format timestamp on query
         },
+    },
+    {
+        toJSON: {
+            getters: true,
+        },
+        id: false,
     }
 );
+
+module.exports = reactionSchema;
