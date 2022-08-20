@@ -19,6 +19,10 @@ const reactionSchema = new Schema(
             type: Date,
             default: Date.now,
             // TODO: getter method to format timestamp on query
+            // COME BACK LATER
+            get: (date) => {
+                if (date) return date.toISOString().split("T")[0];
+            },
         },
     },
     {
