@@ -52,5 +52,8 @@ module.exports = {
             )
             .then(() => res.json({ message: "User and their thoughts are deleted!" }))
 			.catch((err) => res.status(500).json(err));
-    }, 
+    },
+    // TODO: Add a new friend to a user's friend list
+    // TODO: Remove a friend from a user's friend list
+
 };

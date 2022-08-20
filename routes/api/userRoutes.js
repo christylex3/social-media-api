@@ -18,4 +18,6 @@ router
     .put(updateUser)
     .delete(deleteUser);
 
+// TODO: Set up friends' route
+
 module.exports = router;
