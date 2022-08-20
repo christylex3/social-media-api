@@ -1,4 +1,10 @@
 const { Schema, model } = require("mongoose");
+const thoughtSchema = require("./Thought");
+
+var isEmail = function(email) {
+    var regex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    return regex.test(email)
+};
 
 const userSchema = new Schema(
     {
@@ -15,10 +21,15 @@ const userSchema = new Schema(
             validate: [isEmail, "Invalid email"],
         },
         thoughts: {
-            _id: [thoughtSchema], 
+            _id: [
+                {
+                    type: Schema.Types.ObjectId,
+                    ref: "Thought",
+                }
+            ], 
         },
         friends: {
-            _id: [userSchema],
+            _id: [this],
         }
     },
     {
