@@ -31,7 +31,7 @@ module.exports = {
             .then((user) =>
             !user
                 ? res.status(404).json({
-                    message: "Thought created but cannot find the user with that ID!",
+                    message: "Thought is created but cannot find the user with that ID!",
                 })
                 :res.json("Successfully created the thought!")
             )
@@ -76,6 +76,19 @@ module.exports = {
             )
             .catch((err) => res.status(500).json(err));
     },
-    
+    // Add reactions to thoughts by storing the reaction in the thought's reactions array
+    addReaction(req, res) {
+        Thought.findOneAndUpdate(
+            { _id: req.params.thoughtId },
+            { $addToSet: { reactions: req.body } },
+            { runValidators: true, new: true }
+        )
+            .then((thought) =>
+                !thought
+                    ? res.status(404).json({ message: "No thought with this id!" })
+                    : res.json(thought)
+            )
+            .catch((err) => res.status(500).json(err));
+    },
 
 };
