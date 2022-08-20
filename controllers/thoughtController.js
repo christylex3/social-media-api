@@ -17,5 +17,29 @@ module.exports = {
                     : res.json(thought))
             .catch((err) => res.status(500).json(err));
     },
+    // Create a thought
+    createThought(req, res) {
+        Thought.create(req.body)
+            // need to push created thoughts _id to associated user's thoughts
+            .then((thought) => {
+                return User.findOneAndUpdate(
+                    { _id: req.body.userId },
+                    { $addToSet: { thoughts: thought._id} },
+                    { new: true }
+                );
+            })
+            .then((user) =>
+            !user
+                ? res.status(404).json({
+                    message: "Thought created but cannot find the user with that ID!",
+                })
+                :res.json("Successfully created the thought!")
+            )
+            .catch((err) => {
+                console.log(err);
+                return res.status(500).json(err);
+            });
+    },
     
+
 };

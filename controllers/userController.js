@@ -23,7 +23,10 @@ module.exports = {
     createUser(req, res) {
         User.create(req.body)
             .then((user) => res.json(user))
-            .catch();
+            .catch((err) => {
+                console.log(err);
+                return res.status(500).json(err);
+            });
     },
     // Update a user
     updateUser(req, res) {
