@@ -53,7 +53,19 @@ module.exports = {
             .then(() => res.json({ message: "User and their thoughts are deleted!" }))
 			.catch((err) => res.status(500).json(err));
     },
-    // TODO: Add a new friend to a user's friend list
-    // TODO: Remove a friend from a user's friend list
+    // Add a new friend to a user's friend list
+    addFriend(req, res) {
+        User.findOneAndUpdate(
+            { _id: req.params.userId },
+            { $addToSet: { friends: req.body } },
+            { runValidators: true, new: true }
+        )
+            .then((user) =>
+                !user
+                    ? res.status(404).json({ message: "No user found with that ID!" } )
+                    : res.json(friend)
+            )
+            .catch((err) => res.status(500).json(err));
+    }
 
 };
