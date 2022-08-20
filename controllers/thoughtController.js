@@ -40,7 +40,7 @@ module.exports = {
                 return res.status(500).json(err);
             });
     },
-    // Updates thought by finding its id
+    // Updates thought by its id
     updateThought(req, res) {
         Thought.findOneAndUpdate(
             { _id: req.params.thoughtId },
@@ -57,6 +57,25 @@ module.exports = {
                 res.status(500).json(err);
             });
     },
-
+    // Deletes thought by its id
+    deleteThought(req, res) {
+        Thought.findOneAndRemove({ _id: req.params.thoughtId })
+            .then((thought) =>
+                !thought
+                    ? res.status(404).json({ message: "No thought with this id! "})
+                    : User.findOneAndUpdate(
+                        { thoughts: req.params.thoughtId },
+                        { $pull: { thoughts: req.params.thoughtId }},
+                        { new: true }
+                    )
+            )
+            .then((user) =>
+                !user
+                    ? res.status(404).json({ message: "Thought is created, but there is no user with this id!" })
+                    : res.json({ message: "Thought is successfully deleted!"})
+            )
+            .catch((err) => res.status(500).json(err));
+    },
+    
 
 };
