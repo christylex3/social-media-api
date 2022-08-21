@@ -11,7 +11,7 @@ const thoughtSchema = new Schema(
         },
         createdAt: {
             type: Date,
-            default: Date.now,
+            default: Date.now(),
             // TODO: getter method to format timestamp on query
             // COME BACK LATER
             get: (date) => {
@@ -27,6 +27,7 @@ const thoughtSchema = new Schema(
     {
         toJSON: {
             virtuals: true,
+            // getters: true,
         },
         id: false,
     }

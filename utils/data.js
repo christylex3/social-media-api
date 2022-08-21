@@ -49,7 +49,9 @@ const getUsernameAtIndex = (int) => usernames[int];
 // Getting friends
 const getFriends = (users) => {
     const friends = users.filter(user => user.username == "Pikachu" || user.username == "Charmander");
-	return friends.map(friend => friend.id);
+    // console.log(friends[0]);
+    console.log(friends);
+	return friends.map(friend => friend._id);
 }
 
 // Getting random thoughts
@@ -61,7 +63,7 @@ const getRandomThoughts = (username, int) => {
             _id: mongoose.Types.ObjectId(),
             username: username,
             thoughtsText: getRandomArrItem(thoughtsText),
-            createdAt: Date.now,
+            createdAt: Date.now(),
             reactions: reactions,
             __v: 0,
             reactionCount: reactions.length,

@@ -1,4 +1,3 @@
-// Might need to import something else too?
 const { Thought, User } = require("../models");
 
 module.exports = {
@@ -73,7 +72,7 @@ module.exports = {
             )
             .then((user) =>
                 !user
-                    ? res.status(404).json({ message: "Thought is created, but there is no user with this id!" })
+                    ? res.status(404).json({ message: "Thought is deleted, but user not found!" })
                     : res.json({ message: "Thought is successfully deleted!" })
             )
             .catch((err) => res.status(500).json(err));
@@ -94,16 +93,27 @@ module.exports = {
     },
     // Pulls and remove a reaction by its id value
     removeReaction(req, res) {
+        console.log(req.params.thoughtId);
+        console.log(req.params.reactionId);
         Thought.findOneAndUpdate(
-            { _id: req.params.thoughtId },
-            { $pull: { reactions: { reactionId: req.params.reactionId }}},
-            { runValidators: true, new: true }
-        )
-            .then((thought) =>
-                !thought
-                    ? res.status(404).json({ message: "No thought with that ID!" })
-                    : res.json(thought)
-            )
-            .catch((err) => res.status(500).json(err));
+			{ _id: req.params.thoughtId },
+			{
+                $pull: {
+                    reactions: {
+                        reactionId: req.params.reactionId
+                    }
+                } 
+            },
+			{ runValidators: true, new: true }
+		)
+			.then((thought) =>
+				!thought
+					? res.status(404).json({ message: "No thought with that ID!" })
+					: res.json(thought)
+			)
+			.catch((err) => {
+				console.log(err);
+				res.status(500).json(err);
+			});
     },
 };

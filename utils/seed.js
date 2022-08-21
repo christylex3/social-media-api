@@ -1,7 +1,7 @@
 const connection = require("../config/connection");
 const mongoose = require("mongoose");
 const { User, Thought } = require("../models");
-const { getUsernameAtIndex, getRandomThought, getRandomThoughts, getFriends } = require("./data");
+const { getUsernameAtIndex, getRandomThoughts, getFriends, getRandomFriends } = require("./data");
 
 connection.on("error", (err) => err);
 connection.once("open", async () => {
@@ -14,25 +14,29 @@ connection.once("open", async () => {
     const users = [];
     const thoughts = [];
 
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < 2; i++) {
         const username = getUsernameAtIndex(i);
 
         const userThoughts = getRandomThoughts(username, 2);
         thoughts.push(...userThoughts);
         const userThoughtsIds = userThoughts.map(thought => thought._id) 
 
+        // const friends = getFriends(users);
+        // const friendCount = friends.length;
         const friends = getFriends(users);
-        console.table(friends);
+        console.log(friends);
+
         const friendCount = friends.length;
 
 		const email = `${username}${Math.floor(Math.random() * (99 - 18 + 1) + 18)}@gmail.com`;
-
+        // console.log(friends);
+        // console.log(friends[0].id);
 		users.push({
-            id: mongoose.Types.ObjectId(),
-            thoughts: userThoughtsIds,
-            friends,
+            _id: mongoose.Types.ObjectId(),
 			username,
 			email,
+            thoughts: userThoughtsIds,
+            friends: friends,
             friendCount,
 		});
     }
@@ -42,6 +46,7 @@ connection.once("open", async () => {
 
 	console.table(users);
     console.table(thoughts);
+    // console.table(friends);
 	console.info("Seeding complete! 🌱");
 	process.exit(0);
 })
