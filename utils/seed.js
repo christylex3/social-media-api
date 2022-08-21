@@ -16,8 +16,8 @@ connection.once("open", async () => {
 
     for (let i = 0; i < 5; i++) {
         const username = getUsernameAtIndex(i);
-        const userThoughts = getRandomThoughts(username, 2);
 
+        const userThoughts = getRandomThoughts(username, 2);
         thoughts.push(...userThoughts);
         const userThoughtsIds = userThoughts.map(thought => thought._id) 
 
