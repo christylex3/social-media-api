@@ -1,7 +1,6 @@
 const connection = require("../config/connection");
 const { User, Thought } = require("../models");
-const { getUsername } = require("./data");
-
+const { getUsernameAtIndex, getRandomThought } = require("./data");
 
 connection.on("error", (err) => err);
 connection.once("open", async () => {
@@ -13,15 +12,33 @@ connection.once("open", async () => {
 
     const users = [];
 
-    for (let i = 0; i < 3; i++) {
-        const username = usernames[i];
+
+
+    for (let i = 0; i < 5; i++) {
+        const username = getUsernameAtIndex(i);
+
+        // TODO: Grab ID instead
+        // const thought = getRandomThought();
+        const thoughts = [];
+        const friends = [];
+
+		const email = `${username}${Math.floor(
+			Math.random() * (99 - 18 + 1) + 18
+		)}@gmail.com`;
+
+		users.push({
+            thoughts,
+            friends,
+			username,
+			email,
+		});
     }
 
-    users.push({
-        username
-    })
-
+    // await Thought.collection.insertMany(thoughts);
     await User.collection.insertMany(users);
-    await Thought.collection.insertMany(thoughts);
+
+	console.table(users);
+	console.info("Seeding complete! 🌱");
+	process.exit(0);
 })
 

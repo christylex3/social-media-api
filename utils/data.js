@@ -3,6 +3,22 @@ const usernames = [
     "Squirtle",
     "Charmander",
     "Bulbasaur",
+    "Togepi",
+    "Eevee",
+    "Piplup",
+    "Magikarp",
+    "Mudkip",
+    "Snorlax",
+    "Oddish",
+    "Bonsly",
+    "Slowpoke",
+    "Jigglypuff",
+    "Cleffa",
+    "Cyndaquil",
+    "Wooper",
+    "Mew",
+    "Mewtwo",
+    "Lucario",
 ];
 
 const thoughtsText = [
@@ -18,9 +34,18 @@ const thoughtsText = [
 const getRandomArrItem = (arr) => arr[Math.floor(Math.random() * arr.length)];
 
 // Getting random username
-const getRandomUsername = () => getRandomArrItem(usernames);
+const getUsernameAtIndex = (int) => usernames[int];
+
+// Getting random friends
+const getRandomFriends = (int) => {
+    const results = [];
+	for (let i = 0; i < int; i++) {
+		results.push(get);
+	}
+	return results;
+}
 
 // Getting random thoughts
 const getRandomThought = () => getRandomArrItem(thoughtsText);
 
-module.exports = { getRandomUsername, getRandomThought }
+module.exports = { getUsernameAtIndex, getRandomThought }
