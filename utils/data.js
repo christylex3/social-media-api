@@ -1,4 +1,4 @@
-var mongoose = require("mongoose");
+const mongoose = require("mongoose");
 
 const usernames = [
     "Pikachu",
@@ -37,14 +37,10 @@ const getRandomArrItem = (arr) => arr[Math.floor(Math.random() * arr.length)];
 
 // Getting random username
 const getUsernameAtIndex = (int) => usernames[int];
-
-// Getting random friends
-const getRandomFriends = (int) => {
-    const results = [];
-	for (let i = 0; i < int; i++) {
-		results.push(get);
-	}
-	return results;
+// Getting friends
+const getFriends = (users) => {
+    const friends = users.filter(user => user.username == "Pikachu" || user.username == "Charmander");
+	return friends.map(friend => friend.id);
 }
 
 // Getting random thoughts
@@ -62,7 +58,6 @@ const getRandomThoughts = (username, int) => {
         });
 	}
 	return results;
-    
 }
 
-module.exports = { getUsernameAtIndex, getRandomThoughts }
+module.exports = { getUsernameAtIndex, getFriends, getRandomThoughts }

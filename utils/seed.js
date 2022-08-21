@@ -1,6 +1,7 @@
 const connection = require("../config/connection");
+const mongoose = require("mongoose");
 const { User, Thought } = require("../models");
-const { getUsernameAtIndex, getRandomThought, getRandomThoughts } = require("./data");
+const { getUsernameAtIndex, getRandomThought, getRandomThoughts, getFriends } = require("./data");
 
 connection.on("error", (err) => err);
 connection.once("open", async () => {
@@ -13,7 +14,6 @@ connection.once("open", async () => {
     const users = [];
     const thoughts = [];
 
-
     for (let i = 0; i < 5; i++) {
         const username = getUsernameAtIndex(i);
         const userThoughts = getRandomThoughts(username, 2);
@@ -21,12 +21,14 @@ connection.once("open", async () => {
         thoughts.push(...userThoughts);
         const userThoughtsIds = userThoughts.map(thought => thought._id) 
 
-        const friends = [];
+        const friends = getFriends(users);
+        console.table(friends);
         const friendCount = friends.length;
 
 		const email = `${username}${Math.floor(Math.random() * (99 - 18 + 1) + 18)}@gmail.com`;
 
 		users.push({
+            id: mongoose.Types.ObjectId(),
             thoughts: userThoughtsIds,
             friends,
 			username,
