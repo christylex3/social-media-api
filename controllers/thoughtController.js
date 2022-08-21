@@ -5,6 +5,7 @@ module.exports = {
     // Get all thoughts
     getThoughts(req, res) {
         Thought.find()
+        // Might need to fix
             .then((thoughts) => res.json(thoughts))
             .catch((err) => res.status(500).json(err));
     },
@@ -73,7 +74,7 @@ module.exports = {
             .then((user) =>
                 !user
                     ? res.status(404).json({ message: "Thought is created, but there is no user with this id!" })
-                    : res.json({ message: "Thought is successfully deleted!"})
+                    : res.json({ message: "Thought is successfully deleted!" })
             )
             .catch((err) => res.status(500).json(err));
     },

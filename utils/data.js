@@ -1,3 +1,5 @@
+var mongoose = require("mongoose");
+
 const usernames = [
     "Pikachu",
     "Squirtle",
@@ -46,6 +48,21 @@ const getRandomFriends = (int) => {
 }
 
 // Getting random thoughts
-const getRandomThought = () => getRandomArrItem(thoughtsText);
+const getRandomThoughts = (username, int) => {
+    const results = [];
+	for (let i = 0; i < int; i++) {
+		results.push({
+            _id: mongoose.Types.ObjectId(),
+            username: username,
+            thoughtsText: getRandomArrItem(thoughtsText),
+            createdAt: Date.now,
+            reactions: [],
+            __v: 0,
+            reactionCount: 0,
+        });
+	}
+	return results;
+    
+}
 
-module.exports = { getUsernameAtIndex, getRandomThought }
+module.exports = { getUsernameAtIndex, getRandomThoughts }
