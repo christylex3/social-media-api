@@ -1,5 +1,7 @@
 const connection = require("../config/connection");
 const { User, Thought } = require("../models");
+const { getUsername } = require("./data");
+
 
 connection.on("error", (err) => err);
 connection.once("open", async () => {
@@ -9,7 +11,17 @@ connection.once("open", async () => {
     await User.deleteMany({});
     await Thought.deleteMany({});
 
-    // Creates empty array to hold the users
     const users = [];
+
+    for (let i = 0; i < 3; i++) {
+        const username = usernames[i];
+    }
+
+    users.push({
+        username
+    })
+
+    await User.collection.insertMany(users);
+    await Thought.collection.insertMany(thoughts);
 })
 
