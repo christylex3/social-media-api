@@ -8,7 +8,6 @@ module.exports = {
             .catch((err) => res.status(500).json(err));
     },
     // Get a single user by id
-    // TODO: need to populate thought and friend data
     getSingleUser(req, res) {
         console.log(req.params.userId);
         User.findOne({ _id: req.params.userId })

@@ -77,6 +77,7 @@ const getRandomReactions = (username) => {
     const numOfReactions = Math.floor(Math.random() * 3)
     for (let i = 0; i < numOfReactions; i++) {
         reactions.push({
+            reactionId: mongoose.Types.ObjectId(),
             createdAt: Date.now,
             reactionBody: getRandomArrItem(reactionBody),
             username: username,
