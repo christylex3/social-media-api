@@ -21,16 +21,11 @@ connection.once("open", async () => {
         thoughts.push(...userThoughts);
         const userThoughtsIds = userThoughts.map(thought => thought._id) 
 
-        // const friends = getFriends(users);
-        // const friendCount = friends.length;
         const friends = getFriends(users);
-        console.log(friends);
-
         const friendCount = friends.length;
 
 		const email = `${username}${Math.floor(Math.random() * (99 - 18 + 1) + 18)}@gmail.com`;
-        // console.log(friends);
-        // console.log(friends[0].id);
+
 		users.push({
             _id: mongoose.Types.ObjectId(),
 			username,
@@ -46,7 +41,6 @@ connection.once("open", async () => {
 
 	console.table(users);
     console.table(thoughts);
-    // console.table(friends);
 	console.info("Seeding complete! 🌱");
 	process.exit(0);
 })

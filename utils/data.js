@@ -49,7 +49,6 @@ const getUsernameAtIndex = (int) => usernames[int];
 // Getting friends
 const getFriends = (users) => {
     const friends = users.filter(user => user.username == "Pikachu" || user.username == "Charmander");
-    // console.log(friends[0]);
     console.log(friends);
 	return friends.map(friend => friend._id);
 }
